@@ -36,6 +36,32 @@ ListNode* deleteDuplicates(ListNode* head) {
     return dummy->next;
 }
 
+/*
+ListNode* deleteDuplicates(ListNode *head) {
+    ListNode *result = new ListNode(-1);
+    result->next = head;
+    ListNode *curr = result;
+    while (curr) {
+        bool dup = false;
+        ListNode *runner = curr->next;
+        while (runner && runner->next) {
+            if(runner->val == runner->next->val) {
+                runner = runner->next;
+                dup = true;
+            } else {
+                break;
+            }
+        }
+        if (dup) {
+            curr->next = runner->next;
+        } else {
+            curr = curr->next;
+        }
+    }
+    return result->next;
+}
+ */
+
 int main(int argc, const char * argv[]) {
     ListNode *node1 = new ListNode(1);
     ListNode *node2 = new ListNode(2);
