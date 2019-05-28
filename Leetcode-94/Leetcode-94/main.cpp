@@ -82,4 +82,6 @@ int main(int argc, const char * argv[]) {
  • 分治法 Divide Conquer
  
  本题使用分治法，大部分Binary Tree问题都可以使用分治法，能用分治解决的，不一定能用Traverse解决，所以一般首选分治
+ 
+ Time complexity is O(nLog(n))
  */
