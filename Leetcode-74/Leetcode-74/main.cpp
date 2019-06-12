@@ -88,9 +88,22 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-
-/* Birnary Search
-   先搜row，确定target所在的范围的row，再搜colum确定是否存在
+/*
+ ###算法
+ 二分法，递归recursion 和 迭代
  
+ ###代码实现
+ ***有什么要注意的地方
+ 先搜row，确定target所在的范围的row，再搜colum确定是否存在
  {}, {{}} nil判断一定要优先考虑，因为这个，Runtime error了两把
+ 
+ ***有什么要优化的地方
+ 
+ ###时空复杂度
+ time O(log(m+n))  m,n 分别为row 和 colum
+ space O(1)
+ 
+ ###相关的题目有哪些
+ 
  */
+
