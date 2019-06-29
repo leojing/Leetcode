@@ -51,6 +51,7 @@ int maxPathSum(TreeNode* root) {
     return maxSum;
 }
 
+
 int main(int argc, const char * argv[]) {
     TreeNode *root = new TreeNode(1);
     TreeNode *node1 = new TreeNode(2);
@@ -75,7 +76,7 @@ int main(int argc, const char * argv[]) {
 
 /*
  ###算法
- DFS, 遍历binary tree
+ DFS, 遍历binary tree，Use both children, return one
  
  ###代码实现
  ***有什么要注意的地方
