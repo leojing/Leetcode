@@ -37,7 +37,8 @@ int helper(TreeNode* root) {
     maxSum = std::max(maxSum, sum);
     
     // tricky thing is here，so smart
-    // 因为是寻找path，所以其实并不是像寻找subtree一样，左右两边都可以作为答案返回，只可去root+left和root，root+right和root中的最大值，这样就是变相的取得了path，而不是subtree
+    // 因为是寻找path，所以其实并不是像寻找subtree一样，左右两边都可以作为答案返回，
+    // 只可取root+left和root，root+right和root中的最大值，这样就是变相的取得了path，而不是subtree
     int t = std::max(left, right);
     if (t > 0) {
         return root->val + t;
