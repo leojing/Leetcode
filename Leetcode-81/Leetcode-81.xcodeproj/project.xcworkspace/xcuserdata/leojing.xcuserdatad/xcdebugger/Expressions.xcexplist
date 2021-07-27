@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "binarySearch(std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;&amp;, int, int, int):main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "nums[start]">
+            </PersistentString>
+            <PersistentString
+               value = "nums[mid]">
+            </PersistentString>
+            <PersistentString
+               value = "nums[end]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
