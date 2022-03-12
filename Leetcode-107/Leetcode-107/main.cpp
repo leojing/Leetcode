@@ -62,6 +62,16 @@ vector<vector<int>> levelOrderBottom(TreeNode* root) {
 
 int main(int argc, const char * argv[]) {
     TreeNode* root = new TreeNode(1);
+    
+    TreeNode* node1 = new TreeNode(2);
+    TreeNode* node2 = new TreeNode(3);
+    TreeNode* node3 = new TreeNode(4);
+    
+    root->left = node1;
+    root->right = node2;
+    
+    node1->right = node3;
+    
     vector<vector<int>> result = levelOrderBottom(root);
     std::cout << result.size() << "\n";
     return 0;
