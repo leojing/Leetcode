@@ -82,12 +82,25 @@ ListNode *mergeNode(ListNode *a, ListNode *b) {
     return result->next;
 }
 
+// 也可以用递归去merge
+ListNode* mergeList(ListNode* a, ListNode* b) {
+    if (!a) return b;
+    if (!b) return a;
+    if (a->val < b->val) {
+        a->next = mergeList(a->next, b);
+        return a;
+    } else {
+        b->next = mergeList(a, b->next);
+        return b;
+    }
+}
+
 ListNode* sortList(ListNode* head) {
     if (!head || head->next == NULL) {
         return head;
     }
     ListNode *fast = head, *slow = head;
-    if (head->next->next == NULL) {
+    if (head->next->next == NULL) { // 2个数的情况要单独处理，直接merge
         fast = head->next;
         slow = head;
         slow->next = NULL;
