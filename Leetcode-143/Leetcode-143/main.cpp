@@ -19,6 +19,7 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+/* Solution 1:  time: O(n), space: O(n)
 ListNode* findMid(ListNode* head) {
     ListNode* fast = head;
     ListNode* slow = head;
@@ -62,6 +63,55 @@ void reorderList(ListNode* head) {
         firstHalf.pop();
         secondHalf.pop();
     }
+}*/
+
+// Solution 2: time: O(n), 优化方法：找到中间点，将后半部分reverse，将前半部分和反转后的后半部分join，这样space就是O(1)
+ListNode* reverseList(ListNode* head) {
+    if (!head) return head;
+    ListNode* pre = NULL;
+    while (head) {
+        ListNode* temp = head->next;
+        head->next = pre;
+        pre = head;
+        head = temp;
+    }
+    return pre;
+}
+    
+ListNode* mergeLists(ListNode* a, ListNode* b) {
+    if (!a) return b;
+    if (!b) return a;
+    ListNode* dummy = new ListNode(1);
+    ListNode* curr = dummy;
+    while (a && b) {
+        curr->next = a;
+        a = a->next;
+        curr = curr->next;
+        curr->next = b;
+        b = b->next;
+        curr = curr->next;
+    }
+    if (a) {
+        curr->next = a;
+    }
+    if (b) {
+        curr->next = b;
+    }
+    return dummy->next;
+}
+
+void reorderList(ListNode* head) {
+    if (!head->next) return;
+    ListNode* fast = head, *slow = head;
+    while (fast && fast->next) {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    ListNode* rightHalf = reverseList(slow->next);
+    slow->next = NULL;
+    ListNode* leftHalf = head;
+    
+    head = mergeLists(leftHalf, rightHalf);
 }
 
 int main(int argc, const char * argv[]) {
@@ -79,10 +129,3 @@ int main(int argc, const char * argv[]) {
     std::cout << node1 << "\n";
     return 0;
 }
-
-/*
- 优化方法：找到中间点，将后半部分reverse，将前半部分和反转后的后半部分join，这样space就是O(1)
- 
- time: O(n)
- space: O(n)
- */
