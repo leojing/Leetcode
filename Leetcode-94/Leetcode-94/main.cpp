@@ -8,6 +8,9 @@
 
 #include <iostream>
 #include <vector>
+#include <stack>
+
+using namespace std;
 
 struct TreeNode {
     int val;
@@ -16,6 +19,7 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+/*
 std::vector<int> inorderTraversal(TreeNode* root) {
     std::vector<int> result = std::vector<int>();
     // edge case判断
@@ -46,6 +50,26 @@ std::vector<int> inorderTraversal(TreeNode* root) {
     
     return result;
 }
+*/
+
+// 迭代法，用stack模拟
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> result;
+    if (!root) return result;
+    stack<TreeNode*> nodes;
+    while (!nodes.empty() || root) {
+        while (root) {
+            nodes.push(root);
+            root = root->left;
+        }
+        
+        root = nodes.top();
+        nodes.pop();
+        result.push_back(root->val);
+        root = root->right;
+    }
+    return result;
+}
 
 int main(int argc, const char * argv[]) {
     TreeNode* root = new TreeNode(8);
@@ -63,12 +87,12 @@ int main(int argc, const char * argv[]) {
     
     node1->left = node3;
     node1->right = node4;
-    
+
     node4->left = node5;
     node4->right = node6;
-    
+
     node2->right = node7;
-    
+
     node7->left = node8;
     
     std::vector<int> result = inorderTraversal(root);
