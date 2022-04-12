@@ -12,31 +12,30 @@
 
 using namespace std;
 
-
 string minWindow(string s, string t) {
     // space: O(1)
-    vector<int> chars(128, 0);
+    vector<int> need(128, 0);
     // time: O(n)
     for (auto c : t) {
-        chars[c] ++;
+        need[c] ++;
     }
     int count = 0, left = 0, min_left = 0, min_size = INT_MAX;
     // time: O(m)
     for (int right = 0; right < s.size(); right ++) {
-        if (chars[s[right]] > 0) { //如果存在于t中，count+1
+        if (need[s[right]] > 0) { //如果存在于t中，count+1
             count ++;
         }
-        chars[s[right]] --; // 如果不存在于t中，则会<0
+        need[s[right]] --; // 如果不存在于t中，则会<0
         if (count == t.size()) {
-            while (left < right && chars[s[left]] < 0) { // 去掉前面无关紧要的字符
-                chars[s[left]] ++;
+            while (left < right && need[s[left]] < 0) { // 去掉前面无关紧要的字符
+                need[s[left]] ++;
                 left ++;
             }
             if (right - left + 1 < min_size) { // 替换成最优解
                 min_size = right - (min_left = left) + 1;
             }
             // 将left往后移动一位，继续找新的解
-            chars[s[left]] ++;
+            need[s[left]] ++;
             left ++;
             count --;
         }
