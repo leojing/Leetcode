@@ -12,19 +12,23 @@
 
 using namespace std;
 
-void dfs(vector<int>& nums, int index, vector<int> current, unordered_set<int> visited, vector<vector<int>>& result) {
+void dfs(vector<int>& nums, vector<int> current, unordered_set<int> visited, vector<vector<int>>& result) {
     if (visited.size() == nums.size()) {
         result.emplace_back(current);
         return;
     }
     for (int i = 0; i < (int)nums.size(); i ++) {
-        // 如果i已经访问过，或者i-1和i相等并且i-1还被访问，那就跳过，不然会导致重复答案，保证相等的数都要从小到大被访问，这样就能保证没有重复
-        if (visited.find(i) != visited.end() || (i > 0 && nums[i] == nums[i-1] && visited.find(i-1) == visited.end())) {
+        // 如果i已经访问过，
+        // 或者nums[i-1]和nums[i]相等并且i-1没有被访问，那就跳过，不然会导致重复答案，保证相等的数都要从小到大被访问，这样就能保证没有重复
+        if (visited.find(i) != visited.end()) {
+            continue;
+        }
+        if (i > 0 && nums[i] == nums[i-1] && visited.find(i-1) == visited.end()) {
             continue;
         }
         current.emplace_back(nums[i]);
         visited.insert(i);
-        dfs(nums, i+1, current, visited, result);
+        dfs(nums, current, visited, result);
         visited.erase(i);
         current.pop_back();
     }
@@ -33,7 +37,7 @@ void dfs(vector<int>& nums, int index, vector<int> current, unordered_set<int> v
 vector<vector<int>> permuteUnique(vector<int>& nums) {
     vector<vector<int>> result;
     sort(nums.begin(), nums.end());
-    dfs(nums, 0, {}, {}, result);
+    dfs(nums, {}, {}, result);
     return result;
 }
 
