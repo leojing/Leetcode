@@ -30,8 +30,9 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
 }
 */
     
-// Solution 2: time: O(m*n*26) = O(m*n), m is strs.length, n is strs[i].length
-
+// Solution 2:
+// time: O(m*n*26) = O(m*n), m is strs.length, n is strs[i].length
+// space: O(m*n)
 string count(string s) {
     int ch[26] = {0};
     for (auto c: s) {

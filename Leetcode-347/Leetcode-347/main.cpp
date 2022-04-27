@@ -8,9 +8,11 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <unordered_map>
 
 using namespace std;
 
+/*
 typedef pair<int, int> Num;
 
 struct Cmp {
@@ -21,6 +23,7 @@ struct Cmp {
        return lhs.second > rhs.second;
    }
 };
+
 
 vector<int> topKFrequent(vector<int>& nums, int k) {
     sort(nums.begin(), nums.end()); // time: O(NLogN)
@@ -72,10 +75,44 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
     }
     return result;
 }
+*/
+
+// time: O(n*logK), priority_queu
+// space: O(n)
+
+struct cmp {
+    bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
+        return lhs.second > rhs.second; // priority_queue 需要反过来，因为priority_queue的队首指向vector的结尾，如果想从小到大排，那就要 >
+    }
+};
+
+vector<int> topKFrequent(vector<int>& nums, int k) {
+    unordered_map<int, int> occ;
+    for (auto num: nums) {
+        occ[num] ++;
+    }
+    priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> pq;
+    for (auto& [num, count]: occ) {
+        if (pq.size() == k) {
+            if (pq.top().second < count) {
+                pq.pop();
+                pq.push(make_pair(num, count));
+            }
+            continue;
+        }
+        pq.push(make_pair(num, count));
+    }
+    vector<int> result;
+    while (!pq.empty()) {
+        result.emplace_back(pq.top().first);
+        pq.pop();
+    }
+    return result;
+}
 
 int main(int argc, const char * argv[]) {
-    vector<int> nums = {1};//{1,1,2,2,4,3,2,6,4,2,2,6,6,4,1};
-    vector<int> result = topKFrequent(nums, 1);
+    vector<int> nums = {5,2,5,3,5,3,1,1,3};//{1};//{1,1,2,2,4,3,2,6,4,2,2,6,6,4,1};
+    vector<int> result = topKFrequent(nums, 2);
     std::cout << result.size() << "\n";
     return 0;
 }
