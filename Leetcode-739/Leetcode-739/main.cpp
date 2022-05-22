@@ -19,18 +19,9 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
     vector<int> result(n, 0);
     for (int i = 0; i < n; i ++) {
         Temp curr = make_pair(i, temperatures[i]);
-        if (stk.empty()) {
-            stk.emplace(curr);
-            continue;
-        }
-        Temp top = stk.top();
-        while (top.second < curr.second) {
-            result[top.first] = curr.first - top.first;
+        while (!stk.empty() && stk.top().second < curr.second) {
+            result[stk.top().first] = curr.first - stk.top().first;
             stk.pop();
-            if (stk.empty()) {
-                break;
-            }
-            top = stk.top();
         }
         stk.emplace(curr);
     }
