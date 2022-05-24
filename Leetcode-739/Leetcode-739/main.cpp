@@ -11,6 +11,7 @@
 
 using namespace std;
 
+/*
 typedef pair<int, int> Temp;
 
 vector<int> dailyTemperatures(vector<int>& temperatures) {
@@ -24,6 +25,20 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
             stk.pop();
         }
         stk.emplace(curr);
+    }
+    return result;
+}*/
+
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    stack<int> stk; // 优化成存放index
+    int n = temperatures.size();
+    vector<int> result(n, 0);
+    for (int i = 0; i < n; i ++) {
+        while (!stk.empty() && temperatures[stk.top()] < temperatures[i]) {
+            result[stk.top()] = i - stk.top();
+            stk.pop();
+        }
+        stk.emplace(i);
     }
     return result;
 }
