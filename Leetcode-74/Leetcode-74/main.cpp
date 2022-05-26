@@ -9,6 +9,9 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
+/* Solution 1
 bool helperCheckRange(std::vector<std::vector<int>>& matrix, int row, int target) {
     int n = int(matrix[row].size());
     if (n == 0) {
@@ -75,6 +78,60 @@ bool searchMatrix(std::vector<std::vector<int>>& matrix, int target) {
     }
     int colum = searchColums(matrix, row, 0, n-1, target);
     return colum != -1;
+}
+ 
+ */
+
+// Solution 2
+int binarySearchForRow(vector<vector<int>>& matrix, int target) {
+    int rows = matrix.size();
+    int start = 0, end = rows - 1;
+    while (start + 1 < end) {
+        int mid = start + ((end - start) >> 1);
+        if (matrix[mid][0] == target) {
+            return mid;
+        }
+        if (matrix[mid][0] < target) {
+            start = mid;
+        } else {
+            end = mid;
+        }
+    }
+    if (matrix[start][0] <= target && matrix[end][0] > target) {
+        return start;
+    }
+    if (matrix[end][0] <= target) {
+        return end;
+    }
+    return -1;
+}
+
+bool helper(vector<vector<int>>& matrix, int row, int target) {
+    int cols = matrix[row].size();
+    int start = 0, end = cols - 1;
+    while (start + 1 < end) {
+        int mid = start + ((end - start) >> 1);
+        if (matrix[row][mid] == target) {
+            return true;
+        }
+        if (matrix[row][mid] < target) {
+            start = mid;
+        } else {
+            end = mid;
+        }
+    }
+    if (matrix[row][start] == target || matrix[row][end] == target) {
+        return true;
+    }
+    return false;
+}
+
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    int row = binarySearchForRow(matrix, target);
+    if (row == -1) {
+        return false;
+    }
+    return helper(matrix, row, target);
 }
 
 int main(int argc, const char * argv[]) {
