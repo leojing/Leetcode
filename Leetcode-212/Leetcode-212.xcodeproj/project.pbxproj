@@ -239,6 +239,7 @@
 		2C4A3DAD257CF7F500FDA825 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SM8VG26ZPC;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -249,6 +250,7 @@
 		2C4A3DAE257CF7F500FDA825 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SM8VG26ZPC;
 				ENABLE_HARDENED_RUNTIME = YES;
