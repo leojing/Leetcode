@@ -9,6 +9,7 @@
 
 using namespace std;
 
+/*
 class TrieNode {
 public:
     TrieNode* next[26];
@@ -29,7 +30,7 @@ public:
 class WordDictionary {
     TrieNode* root;
 public:
-    /** Initialize your data structure here. */
+    // Initialize your data structure here.
     WordDictionary() {
         root = new TrieNode();
     }
@@ -73,6 +74,54 @@ private:
             }
         }
         return p;
+    }
+};*/
+
+
+struct TrieNode {
+    TrieNode* next[26];
+    bool isWord = false;
+};
+
+class WordDictionary {
+    TrieNode* root;
+public:
+
+    WordDictionary() {
+       root  = new TrieNode();
+    }
+        
+    void addWord(string word) {
+        TrieNode* p = root;
+        for (int i = 0; i < word.size(); i ++) {
+            char c = word[i];
+            if (!p->next[c - 'a']) {
+                p->next[c - 'a'] = new TrieNode();
+            }
+            p = p->next[c - 'a'];
+        }
+        p->isWord = true;
+    }
+
+    bool search(TrieNode* node, string word) {
+        for (int i = 0; i < word.size() && node; i ++) {
+            if (word[i] != '.') {
+                node = node->next[word[i] - 'a'];
+            } else {
+                TrieNode* temp = node;
+                for (int j = 0; j < 26; j ++) {
+                    node = temp->next[j];
+                    if (search(node, word.substr(i+1))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return node && node->isWord;
+    }
+
+    bool search(string word) {
+        return search(root, word);
     }
 };
 
